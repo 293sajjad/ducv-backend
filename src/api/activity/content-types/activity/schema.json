@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "activities",
+  "info": {
+    "singularName": "activity",
+    "pluralName": "activities",
+    "displayName": "Activity"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "minLength": 5
+    },
+    "description": {
+      "type": "text"
+    },
+    "date_start": {
+      "type": "date",
+      "required": true
+    },
+    "date_end": {
+      "type": "date"
+    },
+    "status": {
+      "type": "boolean",
+      "required": true
+    },
+    "professor": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::professor.professor",
+      "inversedBy": "activities"
+    }
+  }
+}

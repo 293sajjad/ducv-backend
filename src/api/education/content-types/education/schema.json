@@ -1,0 +1,51 @@
+{
+  "kind": "collectionType",
+  "collectionName": "educations",
+  "info": {
+    "singularName": "education",
+    "pluralName": "educations",
+    "displayName": "Education"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "grade": {
+      "type": "enumeration",
+      "enum": [
+        "دیپلم",
+        "کاردانی",
+        "کارشناسی",
+        "کارشناسی ارشد",
+        "دکترا"
+      ]
+    },
+    "name_of_the_institution": {
+      "type": "string",
+      "required": true,
+      "minLength": 3
+    },
+    "gpa": {
+      "type": "integer",
+      "max": 20,
+      "min": 10
+    },
+    "date_start": {
+      "type": "date",
+      "required": true
+    },
+    "date_end": {
+      "type": "date"
+    },
+    "description": {
+      "type": "text"
+    },
+    "professor": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::professor.professor",
+      "inversedBy": "educations"
+    }
+  }
+}

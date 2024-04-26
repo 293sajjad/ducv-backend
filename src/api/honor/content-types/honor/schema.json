@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "honors",
+  "info": {
+    "singularName": "honor",
+    "pluralName": "honors",
+    "displayName": "Honor"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "minLength": 5
+    },
+    "date": {
+      "type": "date"
+    },
+    "description": {
+      "type": "text",
+      "required": true,
+      "minLength": 10
+    },
+    "professor": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::professor.professor",
+      "inversedBy": "honors"
+    }
+  }
+}

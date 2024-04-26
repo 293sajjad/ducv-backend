@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "teachings",
+  "info": {
+    "singularName": "teaching",
+    "pluralName": "teachings",
+    "displayName": "Teaching"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "minLength": 3
+    },
+    "name_of_institution": {
+      "type": "string",
+      "required": true,
+      "minLength": 3
+    },
+    "date": {
+      "type": "date"
+    },
+    "status": {
+      "type": "boolean",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "professor": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::professor.professor",
+      "inversedBy": "teachings"
+    }
+  }
+}
