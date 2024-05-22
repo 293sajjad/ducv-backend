@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "research_activities",
+  "info": {
+    "singularName": "research-activitie",
+    "pluralName": "research-activities",
+    "displayName": "ResearchActivitie"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "body": {
+      "type": "json",
+      "required": true
+    },
+    "professor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::professor.professor",
+      "inversedBy": "research_activitie"
+    }
+  }
+}

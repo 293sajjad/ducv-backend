@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * research service
+ * comment service
  */
 
 const { createCoreService } = require('@strapi/strapi').factories;
 
-module.exports = createCoreService('api::research.research');
+module.exports = createCoreService('api::comment.comment');

@@ -1,34 +1,30 @@
 {
   "kind": "collectionType",
-  "collectionName": "teachings",
+  "collectionName": "comments",
   "info": {
-    "singularName": "teaching",
-    "pluralName": "teachings",
-    "displayName": "Teaching",
-    "description": ""
+    "singularName": "comment",
+    "pluralName": "comments",
+    "displayName": "Comment"
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-    "name_of_institution": {
-      "type": "string",
+    "body": {
+      "type": "text",
       "required": true,
       "minLength": 3
     },
-    "status": {
-      "type": "boolean",
+    "email": {
+      "type": "email",
       "required": true
-    },
-    "description": {
-      "type": "text"
     },
     "professor": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::professor.professor",
-      "inversedBy": "teachings"
+      "inversedBy": "comments"
     }
   }
 }

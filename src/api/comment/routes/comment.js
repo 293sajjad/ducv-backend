@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * research router
+ * comment router
  */
 
 const { createCoreRouter } = require('@strapi/strapi').factories;
 
-module.exports = createCoreRouter('api::research.research');
+module.exports = createCoreRouter('api::comment.comment');

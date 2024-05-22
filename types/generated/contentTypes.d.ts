@@ -831,6 +831,46 @@ export interface ApiActivityActivity extends Schema.CollectionType {
   };
 }
 
+export interface ApiCommentComment extends Schema.CollectionType {
+  collectionName: 'comments';
+  info: {
+    singularName: 'comment';
+    pluralName: 'comments';
+    displayName: 'Comment';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    body: Attribute.Text &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 3;
+      }>;
+    email: Attribute.Email & Attribute.Required;
+    professor: Attribute.Relation<
+      'api::comment.comment',
+      'manyToOne',
+      'api::professor.professor'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::comment.comment',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::comment.comment',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiEducationEducation extends Schema.CollectionType {
   collectionName: 'educations';
   info: {
@@ -962,11 +1002,9 @@ export interface ApiProfessorProfessor extends Schema.CollectionType {
       Attribute.Required &
       Attribute.DefaultTo<false>;
     age: Attribute.Integer;
-    phoen: Attribute.String;
     address: Attribute.Text;
     avatar: Attribute.Media & Attribute.Required;
     video: Attribute.Media;
-    adjectives: Attribute.JSON;
     educations: Attribute.Relation<
       'api::professor.professor',
       'oneToMany',
@@ -977,20 +1015,10 @@ export interface ApiProfessorProfessor extends Schema.CollectionType {
       'oneToMany',
       'api::teaching.teaching'
     >;
-    researches: Attribute.Relation<
-      'api::professor.professor',
-      'oneToMany',
-      'api::research.research'
-    >;
     honors: Attribute.Relation<
       'api::professor.professor',
       'oneToMany',
       'api::honor.honor'
-    >;
-    skills: Attribute.Relation<
-      'api::professor.professor',
-      'oneToMany',
-      'api::skill.skill'
     >;
     activities: Attribute.Relation<
       'api::professor.professor',
@@ -998,6 +1026,39 @@ export interface ApiProfessorProfessor extends Schema.CollectionType {
       'api::activity.activity'
     >;
     email: Attribute.Email;
+    skills: Attribute.Relation<
+      'api::professor.professor',
+      'oneToMany',
+      'api::skill.skill'
+    >;
+    comments: Attribute.Relation<
+      'api::professor.professor',
+      'oneToMany',
+      'api::comment.comment'
+    >;
+    scores: Attribute.Relation<
+      'api::professor.professor',
+      'oneToMany',
+      'api::score.score'
+    >;
+    aboutMe: Attribute.Text;
+    google_scholar: Attribute.String;
+    adjectives: Attribute.JSON;
+    slug: Attribute.String & Attribute.Required & Attribute.Unique;
+    academic_rank: Attribute.Enumeration<
+      [
+        '\u0627\u0633\u062A\u0627\u062F',
+        '\u062F\u0627\u0648\u0631',
+        '\u0627\u0633\u062A\u0627\u062F\u06CC\u0627\u0631',
+        '\u0645\u0631\u0628\u06CC'
+      ]
+    >;
+    research_activitie: Attribute.Relation<
+      'api::professor.professor',
+      'oneToOne',
+      'api::research-activitie.research-activitie'
+    >;
+    phone_number: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1016,27 +1077,65 @@ export interface ApiProfessorProfessor extends Schema.CollectionType {
   };
 }
 
-export interface ApiResearchResearch extends Schema.CollectionType {
-  collectionName: 'researches';
+export interface ApiResearchActivitieResearchActivitie
+  extends Schema.CollectionType {
+  collectionName: 'research_activities';
   info: {
-    singularName: 'research';
-    pluralName: 'researches';
-    displayName: 'Research';
+    singularName: 'research-activitie';
+    pluralName: 'research-activities';
+    displayName: 'ResearchActivitie';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    body: Attribute.JSON & Attribute.Required;
+    professor: Attribute.Relation<
+      'api::research-activitie.research-activitie',
+      'oneToOne',
+      'api::professor.professor'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::research-activitie.research-activitie',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::research-activitie.research-activitie',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiScoreScore extends Schema.CollectionType {
+  collectionName: 'scores';
+  info: {
+    singularName: 'score';
+    pluralName: 'scores';
+    displayName: 'Score';
     description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    title: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
-        minLength: 5;
-      }>;
-    description: Attribute.Text;
-    date: Attribute.Date;
+    email: Attribute.Email & Attribute.Required;
+    rate: Attribute.Integer &
+      Attribute.SetMinMax<
+        {
+          min: 0;
+          max: 5;
+        },
+        number
+      >;
     professor: Attribute.Relation<
-      'api::research.research',
+      'api::score.score',
       'manyToOne',
       'api::professor.professor'
     >;
@@ -1044,13 +1143,13 @@ export interface ApiResearchResearch extends Schema.CollectionType {
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::research.research',
+      'api::score.score',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::research.research',
+      'api::score.score',
       'oneToOne',
       'admin::user'
     > &
@@ -1112,22 +1211,17 @@ export interface ApiTeachingTeaching extends Schema.CollectionType {
     singularName: 'teaching';
     pluralName: 'teachings';
     displayName: 'Teaching';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    title: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
-        minLength: 3;
-      }>;
     name_of_institution: Attribute.String &
       Attribute.Required &
       Attribute.SetMinMaxLength<{
         minLength: 3;
       }>;
-    date: Attribute.Date;
     status: Attribute.Boolean & Attribute.Required;
     description: Attribute.Text;
     professor: Attribute.Relation<
@@ -1172,10 +1266,12 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
       'api::activity.activity': ApiActivityActivity;
+      'api::comment.comment': ApiCommentComment;
       'api::education.education': ApiEducationEducation;
       'api::honor.honor': ApiHonorHonor;
       'api::professor.professor': ApiProfessorProfessor;
-      'api::research.research': ApiResearchResearch;
+      'api::research-activitie.research-activitie': ApiResearchActivitieResearchActivitie;
+      'api::score.score': ApiScoreScore;
       'api::skill.skill': ApiSkillSkill;
       'api::teaching.teaching': ApiTeachingTeaching;
     }

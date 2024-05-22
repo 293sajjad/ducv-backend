@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "scores",
+  "info": {
+    "singularName": "score",
+    "pluralName": "scores",
+    "displayName": "Score",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "rate": {
+      "type": "integer",
+      "min": 0,
+      "max": 5
+    },
+    "professor": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::professor.professor",
+      "inversedBy": "scores"
+    }
+  }
+}

@@ -31,10 +31,6 @@
     "age": {
       "type": "integer"
     },
-    "phoen": {
-      "type": "string",
-      "regex": "^(\\+98|0)?9\\d{9}$"
-    },
     "address": {
       "type": "text"
     },
@@ -54,9 +50,6 @@
         "videos"
       ]
     },
-    "adjectives": {
-      "type": "json"
-    },
     "educations": {
       "type": "relation",
       "relation": "oneToMany",
@@ -69,22 +62,10 @@
       "target": "api::teaching.teaching",
       "mappedBy": "professor"
     },
-    "researches": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::research.research",
-      "mappedBy": "professor"
-    },
     "honors": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::honor.honor",
-      "mappedBy": "professor"
-    },
-    "skills": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::skill.skill",
       "mappedBy": "professor"
     },
     "activities": {
@@ -95,6 +76,57 @@
     },
     "email": {
       "type": "email"
+    },
+    "skills": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::skill.skill",
+      "mappedBy": "professor"
+    },
+    "comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "professor"
+    },
+    "scores": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::score.score",
+      "mappedBy": "professor"
+    },
+    "aboutMe": {
+      "type": "text"
+    },
+    "google_scholar": {
+      "type": "string"
+    },
+    "adjectives": {
+      "type": "json"
+    },
+    "slug": {
+      "type": "string",
+      "regex": "[\\x{پچجحخهعغفقثصضشسیبلاتنمکگوئدذرزطظژؤإأءًٌٍَُِّ }]*$",
+      "required": true,
+      "unique": true
+    },
+    "academic_rank": {
+      "type": "enumeration",
+      "enum": [
+        "استاد",
+        "داور",
+        "استادیار",
+        "مربی"
+      ]
+    },
+    "research_activitie": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::research-activitie.research-activitie",
+      "mappedBy": "professor"
+    },
+    "phone_number": {
+      "type": "string"
     }
   }
 }

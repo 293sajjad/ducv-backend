@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * research controller
+ * comment controller
  */
 
 const { createCoreController } = require('@strapi/strapi').factories;
 
-module.exports = createCoreController('api::research.research');
+module.exports = createCoreController('api::comment.comment');
